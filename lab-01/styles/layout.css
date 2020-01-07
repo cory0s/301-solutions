@@ -1,0 +1,96 @@
+@media screen and (min-width: 780px){
+
+    div > div{
+        height: 100%;
+    }
+
+    .header{
+        height: 14.29%;
+        width: 100%;
+    }
+
+    .nav{
+        float: left;
+        height: 85.71%; 
+        width: 20.83%;
+    }
+
+    .content-container{
+        float: right;
+        height: 64.29%;
+        width: 79.17%; 
+    }
+
+    .large-content{
+        height: 44.44%;
+        width: 100%;
+    }
+
+    .large-content > div{
+        float: left;
+        height: 100%;
+        width: 50%;
+    }
+
+    .small-content{
+        height: 55.56%;
+    }
+
+    .small-content > div{
+        float: left;
+        width: 25%;
+    }
+
+    .footer{
+        float: right;
+        height: 21.43%;
+        width: 79.17%; 
+    }
+}
+
+@media screen and (max-width: 780px){
+
+    div > div{
+        height: 100%;
+    }
+
+    .header{
+        height: 75px;
+        width: 100%;
+    }
+
+    .nav{
+        height: 150px; 
+        width: 100%;
+    }
+
+    .large-content{
+        height: 250px;
+        width: 100%;
+    }
+
+    .large-content > div{
+        height: 50%;
+        width: 100%;
+    }
+
+    .small-content{
+        height: 500px;
+    }
+
+    .small-content > div{
+        float: left;
+        height: 50%;
+        width: 50%;
+    }
+
+    .footer{
+        height: 80px;
+        width: 100%; 
+    }
+
+    .footer > div{
+        height: 100%;
+        width: 100%; 
+    }
+}
