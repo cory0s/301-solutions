@@ -4,6 +4,7 @@ function Creature(creature){
     this.description = creature.description;
     this.keyword = creature.keyword;
     this.horns = creature.horns;
+    if(!keywords.includes(this.keyword)){keywords.push(this.keyword)};
 }
 
 Creature.prototype.render = function(){
