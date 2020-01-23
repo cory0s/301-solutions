@@ -17,15 +17,14 @@ app.use(cors());
 
 // this function creates new instance of Location object with user query information
 function Location(query, res){
-  console.log('res in Location()', res);
   this.search_query = query;
-  this.formatted_query = res.body.results[0].formatted_address;
-  this.latitude = res.body.results[0].geometry.location.lat;
-  this.longitude = res.body.results[0].geometry.location.lng;
+  this.formatted_query = res.body[0].display_name;
+  this.latitude = res.body[0].lat;
+  this.longitude = res.body[0].lon;
 }
 
 function searchToLatLong(query) {
-  const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${query}&key=${process.env.GEOCODE_API_KEY}`;
+  const url = `https://us1.locationiq.com/v1/search.php?key=${process.env.GEOCODE_API_KEY}&q=${query}&format=json`;
 
   return superagent.get(url)
     .then(res => {
@@ -42,8 +41,9 @@ function Weather(day){
 
 // this function gets weather data based on json file info
 function getWeather(request, response){
-  const url = `https://api.darksky.net/forecast/${process.env.WEATHER_API_KEY}/${request.query.data.latitude},${request.query.data.longitude}`;
-  console.log('WEATHER URL', url);
+    console.log('WEATHER REQEUST ---------------------- ',request)
+  const url = `https://api.darksky.net/forecast/${process.env.WEATHER_API_KEY}/${request.query.latitude},${request.query.longitude}`;
+//   console.log('WEATHER URL ---------------------', url);
 
   return superagent.get(url)
     .then(result => {
@@ -90,14 +90,14 @@ function handleError(err, res) {
 
 // API routes
 app.get('/location', (request, response) => {
-  searchToLatLong(request.query.data)
+  searchToLatLong(request.query.city)
     .then(location => response.send(location))
     .catch(error => handleError(error, response));
 })
 
 app.get('/weather', getWeather);
 
-app.get('/meetups', getMeetup);
+// app.get('/meetups', getMeetup);
 
 // this uses express.js to callback to handleError function 
 // handles incorrect path 
