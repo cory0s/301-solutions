@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Book App</title>
+        <!-- <link rel="stylesheet" type="text/css" href="./styles/reset.css"/> -->
+    </head>
+    <body>
+        <main>
+            <h1>Search by Title or Author</h1>
+            <div id="search-form">
+                <form action="/searchResults" method="post">
+                    <input type="text" name="search" placeholder="Enter a title or author" required>
+                    <span>Title</span>
+                        <input type="radio" name="search" value="title" required>
+                    <span>Author</span>
+                        <input type="radio" name="search" value="author" required>
+                    <button type="submit">Search Books</button>
+                </form>
+            </div>
+        </main>
+    </body>
+</html>
