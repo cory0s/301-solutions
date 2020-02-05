@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Book App</title>
+    </head>
+    <body>
+        <main>
+            <h1>Books from search</h1>
+            <%  searchResults.forEach((book, index) => { %>
+            <div class="search-result">
+                <h2><%= book.title %></h2>
+                <h2><%= book.author %></h2>
+                <img src=<%= book.image_url%>></img>
+                <p><%= book.description %></p>
+            </div>
+            <% }) %>
+        </main>
+    </body>
+</html>
