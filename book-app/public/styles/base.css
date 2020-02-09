@@ -1,3 +1,56 @@
-body{
-    background-color: teal;
+*{
+    box-sizing: border-box;
+    margin: 0;
+}
+
+html, body{
+    /* background-color: teal; */
+    height: 100%;
+    width: 100%;
+}
+
+.main-container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.booklist{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.book-list div{
+    width: 33%;
+}
+
+main{
+    width: 100%;
+}
+
+.main-container{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+}
+
+.books-container{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+.search-result{
+    align-items: center;
+    background: lightgrey;
+    display: flex;
+    flex-direction: column;
+    margin: 1rem;
+}
+
+.search-result img{
+    max-width: 300px;
 }
