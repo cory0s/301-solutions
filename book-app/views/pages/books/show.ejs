@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Book App</title>
+    <!-- <link rel="stylesheet" type="text/css" href="reset.css"/> -->
+    <!-- <link rel="stylesheet" type="text/css" href="base.css"/> -->
+</head>
+<body>
+    <main>
+        <h1>Details for Selected Book</h1>
+        <% books.forEach((book, index) => { %>
+            <%- include('./detail', { book: book }) %>
+        <button><a href="/">My Books</a></button>
+        <% }) %>
+    </main>
+</body>
+</html>
