@@ -1,17 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <title>Book App</title>
-    <!-- <link rel="stylesheet" type="text/css" href="reset.css"/> -->
-    <!-- <link rel="stylesheet" type="text/css" href="base.css"/> -->
-</head>
-<body>
-    <main>
-        <h1>Details for Selected Book</h1>
-        <% books.forEach((book, index) => { %>
-            <%- include('./detail', { book: book }) %>
-        <button><a href="/">My Books</a></button>
-        <% }) %>
-    </main>
-</body>
+    <head>
+        <title>Book App</title>
+        <!-- <link rel="stylesheet" type="text/css" href="reset.css"/> -->
+        <!-- <link rel="stylesheet" type="text/css" href="base.css"/> -->
+    </head>
+    <body>
+        <main>
+            <h1>Details for Selected Book</h1>
+            <% books.forEach((book, index) => { %>
+                <%- include('./detail', { book: book }) %>
+                <%- include('./edit', { book: book }) %>
+            <button><a href="/">My Books</a></button>
+            <% }) %>
+        </main>
+    </body>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script>
+        $('.update-button').click(function (e) {
+            let currentId = e.currentTarget.id;
+            $(`.book-details-form-${currentId}`).toggle(100);
+        });
+    </script>
 </html>

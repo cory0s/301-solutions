@@ -1,7 +1,11 @@
-<div class="search-result">
+<div class="book-detail" id="book-detail-<%=book.id%>" >
     <h2><%= book.title %></h2>
     <h2><%= book.author %></h2>
     <img src=<%= book.image_url%>></img>
     <p><%= book.description %></p>
-    <button><a href="/books/<%=book.id%>">View Detail</a></button>
+    <button><a href="/books/<%=book.id%>">View Details</a></button>
+    <button class="update-button" id="<%=book.id%>">Update Details</button>
+    <form method="post" action="/books/<%=book.id%>?_method=delete">
+        <button class="delete-button" type="submit">Delete Book</button>
+    </form>
 </div>

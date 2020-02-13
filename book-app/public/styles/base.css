@@ -43,7 +43,7 @@ main{
     width: 50%;
 }
 
-.search-result{
+.book-detail{
     align-items: center;
     background: lightgrey;
     display: flex;

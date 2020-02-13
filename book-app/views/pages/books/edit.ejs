@@ -1,0 +1,22 @@
+<form action="/books/<%=book.id%>?_method=put" method="post" class="book-details-form-<%=book.id%>" style="display:none">
+    <div class="form-items">
+        <span>Title</span>
+        <input name="title" value="<%=book.title%>" ></input>
+        <span>Author</span>
+        <input name="author" value="<%=book.author%>"></input>
+        <span>ISBN</span>
+        <input name="ISBN" value="<%=book.ISBN%>" ></input>
+        <span>Image URL</span>
+        <input name="image_url" value="<%=book.image_url%>" ></input>
+        <span>Description</span>
+        <input name="description" value="<%=book.description%>" ></input>
+        <span>Bookshelf</span>
+        <input name="bookshelf" value="<%=book.bookshelf%>"></input>
+        <select>
+            <% bookshelves.forEach(bookshelf => { %>
+            <option value="<%=bookshelf.bookshelf%>"><%=bookshelf.bookshelf%></option>
+            <% }) %>
+        </select>
+        <button type="submit">Update Book</button>
+    </div>
+</form>

@@ -4,8 +4,8 @@
 require('dotenv').config();
 const express = require('express');
 const pg = require('pg');
-// const cors = require('cors');
 const superagent = require('superagent');
+const methodOverride = require('method-override');
 
 // Import local helpers
 const Book = require('./models/book.js');
@@ -31,52 +31,102 @@ app.set('view engine', 'ejs');
 // Setup middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
-// app.use(cors());
+app.use(methodOverride('_method'));
 
 app.get('/', renderHome);
 app.get('/searches/new', renderNewSearch);
 app.get('/books/:id', getSingleBook);
 app.post('/books', addBook);
 app.post('/searches', searchBook);
+app.put('/books/:id', updateBook);
+app.delete('/books/:id', deleteBook);
 
 app.get('*', (err, res) => handleError(err, res));
 
 function renderHome(req,res){
     const SQL = `SELECT * FROM books;`;
+    const bookshelvesSQL = 'SELECT DISTINCT bookshelf FROM books;'
 
-    return client.query(SQL)
+    // const bookshelves = await getBookshelves();
+    let allBooks;
+    let allBookshelves;
+    // console.log('BOOKSHELVES', bookshelves);
+    client.query(SQL)
         .then(result => {
-            res.render('pages', { books: result.rows } );
+            // console.log(result);
+            allBooks = result;
+            // console.log(allBooks);
+            // res.render('pages', { books: result.rows } );
         })
-        .catch(console.error);
+        .then(() => {
+            client.query(bookshelvesSQL)
+            .then(result => {
+                allBookshelves = result;
+                res.render('pages', {books: allBooks.rows, bookshelves: allBookshelves.rows })
+            })
+        })
+        .catch(err => console.error(err));
+
+}
+
+function updateBook(req, res){
+    const id = req.params.id;
+    const {title, author, ISBN, image_url, description, bookshelf} = req.body;
+    const SQL = "UPDATE books SET title=$1, author=$2, ISBN=$3, image_url=$4, description=$5, bookshelf=$6 WHERE id = $7";
+    const values = [title, author, ISBN, image_url, description, bookshelf, id];
+
+    client.query(SQL, values)
+        .then(() => {
+            res.redirect(`/books/${id}`)
+        })
+}
+
+function deleteBook(req, res){
+    console.log('IN DELETE METHOD');
+    const id = req.params.id;
+    const SQL = 'DELETE FROM books WHERE id=$1';
+    const values = [id];
+
+    client.query(SQL, values)
+        .then(()=> {
+            res.redirect('/');
+        })
 }
 
 function renderNewSearch(req, res){
     res.render('pages/searches/new');
 };
 
-function getSingleBook(request, response){
+async function getSingleBook(request, response){
     let SQL = 'SELECT * FROM books WHERE id=$1;';
+    const bookshelvesSQL = 'SELECT DISTINCT bookshelf FROM books;'
     let values = [request.params.id];
+
+    let bookshelves = await client.query(bookshelvesSQL)
   
     client.query(SQL, values)
       .then(result => {
-        response.render('pages/books/show', { books : result.rows});
+        response.render('pages/books/show', { books : result.rows, bookshelves: bookshelves.rows });
       })
-      .catch(console.error);
+      .catch(err => console.error(err));
 }
 
-function addBook(request, response){
-    let {title, author, ISBN, image_url, description, bookshelf} = request.body;
+async function addBook(request, response){
+    try{
+        let {title, author, ISBN, image_url, description, bookshelf} = request.body;
 
-    //Add book to database
-    let SQL = 'INSERT INTO books(title, author, ISBN, image_url, description, bookshelf) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id;';
-    let values = [title, author, ISBN, image_url, description.slice(0,255), bookshelf];
+        //Add book to database
+        let SQL = 'INSERT INTO books(title, author, ISBN, image_url, description, bookshelf) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id;';
+        let values = [title, author, ISBN, image_url, description.slice(0,255), bookshelf];
 
-    client.query(SQL, values)
-        .then(result=> response.redirect(`/books/${result.rows[0].id}`))
-        .catch(err => console.error(err));
+        const queryResponse = await client.query(SQL, values);
+        const bookID = queryResponse.rows[0].id;
 
+        response.redirect(`/books/${bookID}`);
+        }
+    catch(err){
+        handleError(err);
+    }
 }
 
 async function searchBook(req, res){
@@ -95,7 +145,7 @@ async function searchBook(req, res){
 }
 
 function handleError(err, res) {
-    res.status(404).send('This route does not exist')
+    res.status(404).send('This route does not exist');
 }
 
 app.listen(process.env.PORT, () => {
