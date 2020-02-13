@@ -12,9 +12,17 @@
             <h2>Number of books: <%= books.length %></h2>
             <div class="books-container">
                 <% books.forEach((book, index) => { %>
-                    <%- include('./books/detail', { book: book }) %>
+                    <%- include('./books/detail', { book: book, bookshelves: bookshelves }) %>
+                    <%- include('./books/edit', { book: book, bookshelves: bookshelves }) %>
                 <% }) %>
             </div>
         </main>
     </body>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script>
+        $('.update-button').click(function (e) {
+            let currentId = e.currentTarget.id;
+            $(`.book-details-form-${currentId}`).toggle(100);
+        });
+    </script>
 </html>

@@ -1,18 +1,22 @@
 @media screen and (min-width: 780px){
 
     div > div{
+        display: table-cell;
         height: 100%;
+        vertical-align: middle;
     }
 
     .header{
+        display: table;
         height: 14.29%;
         width: 100%;
     }
 
     .nav{
+        display: table;
         float: left;
         height: 85.71%; 
-        width: 20.83%;
+        width: 20.84%;
     }
 
     .content-container{
@@ -22,26 +26,32 @@
     }
 
     .large-content{
+        display: table;
         height: 44.44%;
         width: 100%;
     }
 
     .large-content > div{
-        float: left;
+        /* float: left; */
         height: 100%;
         width: 50%;
     }
 
     .small-content{
         height: 55.56%;
+        display: table;
+        width: 100%;
     }
 
     .small-content > div{
-        float: left;
+        /* float: left; */
+        display: table-cell;
+        vertical-align: middle;
         width: 25%;
     }
 
     .footer{
+        display: table;
         float: right;
         height: 21.43%;
         width: 79.17%; 

@@ -18,12 +18,12 @@
                                     
                         <form action="/books" method="post" id="<%= index %>" class="book-details-form">
                             <div class="form-items">
-                                <input name="title" value="<%=book.title%>"  placeholder="<%=book.title%>"></input>
-                                <input name="author" value="<%=book.author%>" placeholder="Author: <%=book.author%>"></input>
-                                <input name="ISBN" value="<%=book.ISBN%>" placeholder="ISBN: <%=book.ISBN%>" ></input>
-                                <input name="image_url" value="<%=book.image_url%>" placeholder="Image URL: <%=book.image_url%>" ></input>
-                                <input name="description" value="<%=book.description%>" placeholder="Description: <%=book.description%>" ></input>
-                                <input name="bookshelf" value="<%=book.bookshelf%>" placeholder="<%=book.bookshelf%>" ></input>
+                                <input name="title" value="<%=book.title%>"  type="hidden"></input>
+                                <input name="author" value="<%=book.author%>" type="hidden"></input>
+                                <input name="ISBN" value="<%=book.ISBN%>" type="hidden" ></input>
+                                <input name="image_url" value="<%=book.image_url%>" type="hidden" ></input>
+                                <input name="description" value="<%=book.description%>" type="hidden" ></input>
+                                <input name="bookshelf" value="<%=book.bookshelf%>" type="hidden" ></input>
                                 <button type="submit">Add to Database</button>
                             </div>
                         </form>
