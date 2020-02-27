@@ -46,11 +46,20 @@ app.get('*', (err, res) => handleError(err, res));
 function renderHome(req,res){
     const SQL = `SELECT * FROM books;`;
     const bookshelvesSQL = 'SELECT DISTINCT bookshelf FROM books;'
+    const join = 'SELECT books.title, people.name, books.id FROM books JOIN people ON books.id = people.book_id;'
+    const people = 'SELECT * FROM people;';
 
     // const bookshelves = await getBookshelves();
     let allBooks;
     let allBookshelves;
     // console.log('BOOKSHELVES', bookshelves);
+    // client.query(join)
+    //     .then(result => console.log(result));
+
+    client.query(people).then(result => {
+        console.log('PEOPLE', result.rows)
+    });
+
     client.query(SQL)
         .then(result => {
             // console.log(result);
